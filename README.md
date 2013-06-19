@@ -1,5 +1,5 @@
 #IRC Pipe
-##Script to interace with IRSSI
+##Command line interface to IRSSI
 
 ###Usage:
 irc [-c iplayer] [-u Josh] [-m "This is my Data: %0"]
@@ -24,9 +24,7 @@ Exmaple Usages:
     echo "Crap" | irc -m"here's some %0 code "
 
 ###Implementation
-It's horrid
-
-There's no feedback from irssi so it's just assumed every command works, and continue on.
+It's horrid, there's no feedback from irssi so it's just assumed every command works, and continue on.
 
 We switch to the specified channel by joining it `/join #$CHANNEL`. 
 
@@ -40,4 +38,7 @@ Even worse: If a user isn't found, the message is just output to the channel. Ve
 
 Take Care.
 
-Plus my Bash skills are lacking to a monkey using Bing.
+##Plus 
+My Bash skills are lacking to a monkey using Bing.
+
+Please improve this script.
