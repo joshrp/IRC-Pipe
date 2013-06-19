@@ -2,7 +2,7 @@
 ##Command line interface to IRSSI
 
 ###Usage:
-irc [-c iplayer] [-u Josh] [-m "This is my Data: %0"]
+irc [-c iplayer] [-u Josh] [-m "This is my Data: %s"]
 
 You will need [irc remote control](http://arvin.schnell-web.net/irssi/remote_control.html) installed in `.irssi/scripts/` to enable remote command of irssi. This creates a FIFO in `~/.irssi/rc` which will send EVERYTHING to irssi.
 
@@ -21,7 +21,7 @@ Exmaple Usages:
     echo "Hai" | irc -c iplayer -u Josh
 
 ######Send formatted message to default channel, "here's some crap code": 
-    echo "Crap" | irc -m"here's some %0 code "
+    date | irc -m "It's currently %s, is it time to go home?"
 
 ###Implementation
 It's horrid, there's no feedback from irssi so it's just assumed every command works, and continue on.
@@ -30,11 +30,9 @@ We switch to the specified channel by joining it `/join #$CHANNEL`.
 
 We issue `/query $USER` if needed.
 
-We issue `/say $MESSAGE` after processing.
+We issue `/msg ($USER|#$CHANNEL) $MESSAGE` after processing.
 
-If any of those fail, it will still execute. So if we can't join a channel, then the message will just get sent in the active window. This is a Bad Thing. 
-
-Even worse: If a user isn't found, the message is just output to the channel. Very Bad Thing.
+If the /query or /join fails, due to a non-existent user or restricted channel for example, then the /msg will still send but will just disappear into the ether.
 
 Take Care.
 
