@@ -10,7 +10,7 @@ OPTIONS:
    -h      Show this message
    -c      Channel, defaults to \#iplayer
    -u      Spcific user in channel
-   -m      Message to parse, use "%0" to place piped content
+   -m      Message to parse, use "%s" to place piped content
 
 EOF
 exit;
@@ -21,6 +21,7 @@ CHANNEL=iplayer
 MESSAGE=false
 DATA=false
 RC=~/.irssi/rc
+TESTMODE=false
 
 while getopts “:hc:u:m:” OPTION
 do
@@ -45,21 +46,30 @@ do
      esac
 done
 
-
 read DATA;
 
+function send_cmd {
+  if [ $TESTMODE == true ]; then
+    TARGET=/tmp/irctest
+  else
+    TARGET=$RC
+  fi
+  echo $@ > $TARGET
+  if [ $TESTMODE == true ]; then
+    cat /tmp/irctest && rm /tmp/irctest
+  fi
+}
+
 if [ "$MESSAGE" != false ]; then
-	MSG=$(echo $MESSAGE | sed s/%0/$DATA/gmi);
+  MSG=$(printf "$MESSAGE" %@);
 else
 	MSG="$DATA"
 fi
 
-echo "/join #$CHANNEL" > $RC;
-
 if [ $USER != false ]; then
-	echo "/query $USER" > $RC;
+  send_cmd "/query $USER";
+  send_cmd "/msg $USER $MSG";
+else
+  send_cmd "/join #$CHANNEL";
+  send_cmd "/msg #$CHANNEL $MSG";
 fi
-
-echo "/say $MSG" > $RC;
-
-
