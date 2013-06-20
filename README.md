@@ -14,11 +14,8 @@ Exmaple Usages:
 ######Output to channel: 
     echo "Hai" | irc -c mychan
  
-######Send to user (as found in default channel): 
+######Send to user (as found in network): 
     echo "Hai" | irc -u Josh
-
-######Send to user from specified channel: 
-    echo "Hai" | irc -c iplayer -u Josh
 
 ######Send formatted message to default channel, "here's some crap code": 
     date | irc -m "It's currently %s, is it time to go home?"

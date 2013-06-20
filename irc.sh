@@ -65,7 +65,7 @@ function send_cmd {
 }
 
 if [ "$MESSAGE" != false ]; then
-  MSG=$(printf "$MESSAGE" %@);
+  MSG=$(printf "$MESSAGE" $DATA);
 else
 	MSG="$DATA"
 fi
