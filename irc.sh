@@ -11,6 +11,7 @@ OPTIONS:
    -c      Channel, defaults to \#iplayer
    -u      Spcific user in channel
    -m      Message to parse, use "%s" to place piped content
+   -n      Dry Run, just echo commands
 
 EOF
 exit;
@@ -23,7 +24,7 @@ DATA=false
 RC=~/.irssi/rc
 TESTMODE=false
 
-while getopts “:hc:u:m:” OPTION
+while getopts “:hc:u:m:n” OPTION
 do
      case $OPTION in
          h)
@@ -38,6 +39,9 @@ do
              ;;
          m)
              MESSAGE=$OPTARG
+             ;;
+         n)
+             TESTMODE=true
              ;;
          ?)
              usage
